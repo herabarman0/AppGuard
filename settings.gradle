@@ -1,0 +1,3 @@
+rootProject.name = "AppGuard"
+include ':appguard'
+include ':app'

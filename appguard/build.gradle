@@ -1,0 +1,47 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    namespace 'com.herasoft.appguard'
+    compileSdk 34
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 34
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+}
+
+dependencies {
+    // কোনো বাড়তি dependency লাগে না — pure Android SDK দিয়েই কাজ চলে
+}
+
+// ---- JitPack-এর জন্য publish configuration ----
+// GitHub-এ পোস্ট করার পর https://jitpack.io -এ গিয়ে রিপো পেস্ট করলেই
+// নিচের মতো যেকোনো অ্যাপ থেকে dependency হিসেবে টানা যাবে:
+//   implementation 'com.github.<আপনার-গিটহাব-ইউজারনেম>:AppGuard:<tag/commit>'
+apply plugin: 'maven-publish'
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.herasoft'
+                artifactId = 'appguard'
+                version = '1.0.0'
+            }
+        }
+    }
+}
